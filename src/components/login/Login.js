@@ -84,7 +84,8 @@ class Login extends React.Component {
    * If the request is successful, a new user is returned to the front-end
    * and its token is stored in the localStorage.
    */
-  async login() {
+  //Original login function renamed to register
+  async register() {
     try {
       const requestBody = JSON.stringify({
         username: this.state.username,
@@ -98,9 +99,33 @@ class Login extends React.Component {
       // Store the token into the local storage.
       localStorage.setItem('token', user.token);
 
-      // Login successfully worked --> navigate to the route /game in the GameRouter
-      this.props.history.push(`/game`);
+      // Registration successfully worked --> Display message to log in.
+      alert("Registration complete. Now you can log in with your new account.")
+
+      //this.props.history.push(`/login`);
+
     } catch (error) {
+      alert(`Something went wrong during the registration: \n${handleError(error)}`);
+    }
+  }
+
+  //New login function with new functionality
+  async login(){
+    try{
+      const requestBody = JSON.stringify({
+        username: this.state.username,
+        name: this.state.name
+      });
+      const response = await api.post('/login', requestBody);
+
+      //Storing Token
+      localStorage.setItem('token', response.data.token)
+
+      //Navigate to the route /game in the GameRouter
+      this.props.history.push(`/game`);
+
+    }
+     catch(error){
       alert(`Something went wrong during the login: \n${handleError(error)}`);
     }
   }
@@ -162,7 +187,7 @@ class Login extends React.Component {
                   disabled={!this.state.username || !this.state.name}
                   width="50%"
                   onClick={() => {
-                    this.login();
+                    this.register();
                   }}
               >
                 Register
