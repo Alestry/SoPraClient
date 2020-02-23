@@ -63,11 +63,26 @@ class Game extends React.Component {
     }
   }
 
+  /**This function redirects the user to the selected user's profile when it was clicked.
+   *
+   * @param user
+   */
+  async redirectToUser(user){
+    //alert("You selected " + user.username + ".");
+    try{
+
+      const response = await api.get('/userid', user);
+
+    }catch(error){
+      alert(`Something went wrong during the inspection of a profile: \n${handleError(error)}`);
+    }
+  }
+
   render() {
     return (
       <Container>
-        <h2>Happy Coding! </h2>
-        <p>Get all users from secure end point:</p>
+        <h2>You are now logged in.</h2>
+        <p>Here is the list of registered users:</p>
         {!this.state.users ? (
           <Spinner />
         ) : (
@@ -75,8 +90,10 @@ class Game extends React.Component {
             <Users>
               {this.state.users.map(user => {
                 return (
-                  <PlayerContainer key={user.id}>
-                    <Player user={user}/>
+                  <PlayerContainer onClick = {()=>{
+                    this.redirectToUser(user);
+                  }} key={user.id}>
+                    <Player user={user} />
                   </PlayerContainer>
                 );
               })}

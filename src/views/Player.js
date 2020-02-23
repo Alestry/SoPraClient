@@ -1,19 +1,22 @@
 import React from "react";
 import styled from "styled-components";
 
+
 const Container = styled.div`
   margin: 6px 0;
-  width: 360px;
+  width: 400px;
   padding: 10px;
   border-radius: 6px;
   display: flex;
   align-items: center;
   border: 1px solid #ffffff26;
-`;
+  cursor: ${props => (props.disabled ? "default" : "pointer")};
+  `;
 
 const UserName = styled.div`
   font-weight: lighter;
   margin-left: 5px;
+  color: white;
 `;
 
 const Name = styled.div`
@@ -25,11 +28,14 @@ const Id = styled.div`
   margin-left: 30px;
   margin-right: auto;
   font-weight: bold;
+  color: white;
 `;
 
 const Date = styled.div`
   margin-left: auto;
   margin-right: 10px;
+  font-size: 12px
+  color: white;
 `;
 
 /**
@@ -43,8 +49,8 @@ const Date = styled.div`
 const Player = ({ user }) => {
   return (
     <Container>
-      <Name>{user.name}</Name> <UserName>{user.username}</UserName>
-      <Id>Id: {user.id}</Id>
+        <Name>{user.name}</Name> <UserName>{user.username}</UserName>
+        <Id>Id: {user.id}</Id>
         <Date>Created: {user.date}</Date>
     </Container>
   );
