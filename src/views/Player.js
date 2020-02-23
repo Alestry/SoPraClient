@@ -3,7 +3,7 @@ import styled from "styled-components";
 
 const Container = styled.div`
   margin: 6px 0;
-  width: 280px;
+  width: 360px;
   padding: 10px;
   border-radius: 6px;
   display: flex;
@@ -22,9 +22,14 @@ const Name = styled.div`
 `;
 
 const Id = styled.div`
+  margin-left: 30px;
+  margin-right: auto;
+  font-weight: bold;
+`;
+
+const Date = styled.div`
   margin-left: auto;
   margin-right: 10px;
-  font-weight: bold;
 `;
 
 /**
@@ -40,6 +45,7 @@ const Player = ({ user }) => {
     <Container>
       <Name>{user.name}</Name> <UserName>{user.username}</UserName>
       <Id>Id: {user.id}</Id>
+        <Date>Created: {user.date}</Date>
     </Container>
   );
 };

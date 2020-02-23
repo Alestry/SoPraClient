@@ -76,7 +76,8 @@ class Login extends React.Component {
     super();
     this.state = {
       name: null,
-      username: null
+      username: null,
+      date: null
     };
   }
   /**
@@ -89,7 +90,8 @@ class Login extends React.Component {
     try {
       const requestBody = JSON.stringify({
         username: this.state.username,
-        name: this.state.name
+        name: this.state.name,
+        date: this.state.date
       });
       const response = await api.post('/users', requestBody);
 
@@ -114,7 +116,8 @@ class Login extends React.Component {
     try{
       const requestBody = JSON.stringify({
         username: this.state.username,
-        name: this.state.name
+        name: this.state.name,
+        date: this.state.date
       });
       const response = await api.post('/login', requestBody);
 
@@ -187,6 +190,12 @@ class Login extends React.Component {
                   disabled={!this.state.username || !this.state.name}
                   width="50%"
                   onClick={() => {
+                    let today = new Date();
+                    let day = String(today.getDate()).padStart(2,'0');
+                    let month = String(today.getMonth()+1).padStart(2,'0');
+                    let year = today.getFullYear();
+                    let todayString = day+"/"+month+"/"+year;
+                    this.state.date = todayString;
                     this.register();
                   }}
               >
