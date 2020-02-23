@@ -144,6 +144,7 @@ class Login extends React.Component {
                 this.handleInputChange('name', e.target.value);
               }}
             />
+
             <ButtonContainer>
               <Button
                 disabled={!this.state.username || !this.state.name}
@@ -155,6 +156,19 @@ class Login extends React.Component {
                 Login
               </Button>
             </ButtonContainer>
+
+            <ButtonContainer>
+              <Button
+                  disabled={!this.state.username || !this.state.name}
+                  width="50%"
+                  onClick={() => {
+                    this.login();
+                  }}
+              >
+                Register
+              </Button>
+            </ButtonContainer>
+
           </Form>
         </FormContainer>
       </BaseContainer>
