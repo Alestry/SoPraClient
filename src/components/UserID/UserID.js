@@ -27,7 +27,7 @@ class UserID extends React.Component {
         super();
         this.state = {
             id: window.location.pathname,
-            user: null
+            user: null,
         };
 
         //Not the most ideal way of handling the page's individualization, but it works i guess
@@ -44,9 +44,17 @@ class UserID extends React.Component {
         }
         this.state.id = tempid;
 
-        /*const gotUser = api.get('/userid/:id', this.state.id);
-        const thisUser = new User(gotUser.data);
-        this.state.user = thisUser;*/
+        this.getUser();
+    }
+
+    async getUser(){
+        try {
+            const sentID = JSON.stringify(this.state.id)
+            const response = await api.get("/profile");
+            this.setState({user: response.data});
+        } catch (error) {
+            alert(`Something went wrong while fetching the profile: \n${handleError(error)}`);
+        }
     }
 
     async goBack(){
@@ -62,7 +70,7 @@ class UserID extends React.Component {
                         Return
                     </Button>
                 </ButtonContainer>
-                {this.state.id}
+                {this.state.user}
             </FormContainer>
         )
     }
