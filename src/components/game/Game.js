@@ -22,6 +22,10 @@ const PlayerContainer = styled.li`
   flex-direction: column;
   align-items: center;
   justify-content: center;
+    &:hover {
+    transform: translateY(-2px);
+  }
+  transition: opacity 0.5s ease, transform 0.5s ease;
 `;
 
 class Game extends React.Component {
@@ -68,10 +72,13 @@ class Game extends React.Component {
    * @param user
    */
   async redirectToUser(user){
-    //alert("You selected " + user.username + ".");
     try{
 
-      const response = await api.get('/userid', user);
+      const userBody = JSON.stringify(user);
+
+      //const response = await api.get('/userid', userBody);
+      //alert(response.data);
+      this.props.history.push(`/userid/`+ user.id);
 
     }catch(error){
       alert(`Something went wrong during the inspection of a profile: \n${handleError(error)}`);
