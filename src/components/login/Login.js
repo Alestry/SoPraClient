@@ -196,6 +196,7 @@ class Login extends React.Component {
                     let year = today.getFullYear();
                     let todayString = day+"/"+month+"/"+year;
                     this.state.date = todayString;
+                    //this.setState({date: todayString});
                     this.register();
                   }}
               >
