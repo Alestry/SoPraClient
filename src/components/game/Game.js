@@ -32,11 +32,13 @@ class Game extends React.Component {
   constructor() {
     super();
     this.state = {
-      users: null
+      users: null,
+      started: false
     };
   }
 
-  logout() {
+  async logout() {
+    await api.get('/logout/' + localStorage.getItem('token'));
     localStorage.removeItem('token');
     this.props.history.push('/login');
   }
@@ -73,12 +75,7 @@ class Game extends React.Component {
    */
   async redirectToUser(user){
     try{
-
-      const userBody = JSON.stringify(user);
-
-      //const response = await api.get('/userid', userBody);
-      //alert(response.data);
-      this.props.history.push(`/userid/`+ user.id);
+      this.props.history.push(`/users/`+ user.id);
 
     }catch(error){
       alert(`Something went wrong during the inspection of a profile: \n${handleError(error)}`);
@@ -108,7 +105,7 @@ class Game extends React.Component {
             <Button
               width="100%"
               onClick={() => {
-                this.logout();
+                this.logout()
               }}
             >
               Logout

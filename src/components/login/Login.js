@@ -119,10 +119,10 @@ class Login extends React.Component {
         name: this.state.name,
         date: this.state.date
       });
-      const response = await api.post('/login', requestBody);
+      const response = await api.put('/login', requestBody);
 
       //Storing Token
-      localStorage.setItem('token', response.data.token)
+      localStorage.setItem('token', response.data.token);
 
       //Navigate to the route /game in the GameRouter
       this.props.history.push(`/game`);

@@ -7,7 +7,7 @@ import Login from "../../login/Login";
 import {UserIDGuard} from "../routeProtectors/UserIDGuard";
 import UserID from "../../UserID/UserID";
 
-/**
+/**o
  * Main router of your application.
  * In the following class, different routes are rendered. In our case, there is a Login Route with matches the path "/login"
  * and another Router that matches the route "/game".
@@ -41,7 +41,7 @@ class AppRouter extends React.Component {
               )}
             />
             <Route
-                path='/userid/:id'
+                path='/users/:id'
                 exact
                 render={() => (
                     <UserIDGuard>
