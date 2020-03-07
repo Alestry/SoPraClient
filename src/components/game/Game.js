@@ -8,13 +8,14 @@ import { Button } from '../../views/design/Button';
 import { withRouter } from 'react-router-dom';
 
 const Container = styled(BaseContainer)`
-  color: white;
-  text-align: center;
+  color: #cc0033;
+  text-align: right;
+  font-size: 20px;
 `;
 
 const Users = styled.ul`
   list-style: none;
-  padding-left: 0;
+  padding-right: 20;
 `;
 
 const PlayerContainer = styled.li`
@@ -23,7 +24,7 @@ const PlayerContainer = styled.li`
   align-items: center;
   justify-content: center;
     &:hover {
-    transform: translateY(-2px);
+    transform: translateX(-50px);
   }
   transition: opacity 0.5s ease, transform 0.5s ease;
 `;
@@ -33,7 +34,6 @@ class Game extends React.Component {
     super();
     this.state = {
       users: null,
-      started: false
     };
   }
 

@@ -25,23 +25,24 @@ const Form = styled.div`
   font-weight: 300;
   padding-left: 37px;
   padding-right: 37px;
-  border-radius: 5px;
-  background: linear-gradient(rgb(27, 124, 186), rgb(2, 46, 101));
+  border-radius: 130px;
+  background: linear-gradient(rgb(68,93,67), rgb(167,32,78));
   transition: opacity 0.5s ease, transform 0.5s ease;
 `;
 
 const InputField = styled.input`
   &::placeholder {
-    color: rgba(255, 255, 255, 1.0);
+    color: rgba(0,0,0);
+    font-weight: bold;
   }
   height: 35px;
   padding-left: 15px;
   margin-left: -4px;
   border: none;
-  border-radius: 20px;
+  border-radius: 5px;
   margin-bottom: 20px;
-  background: rgba(255, 255, 255, 0.2);
-  color: white;
+  background: rgba(255, 255, 255, 0.6);
+  color: black;
 `;
 
 const Label = styled.label`
@@ -52,7 +53,7 @@ const Label = styled.label`
 
 const ButtonContainer = styled.div`
   display: flex;
-  justify-content: center;
+  justify-content: right;
   margin-top: 20px;
 `;
 
@@ -77,7 +78,7 @@ class Login extends React.Component {
     this.state = {
       name: null,
       username: null,
-      date: null
+      date: "",
     };
   }
   /**
@@ -129,8 +130,18 @@ class Login extends React.Component {
 
     }
      catch(error){
-      alert(`Something went wrong during the login: \n${handleError(error)}`);
+      alert(`Something went wrong during the login (This Username/Name combination does not exist): \n${handleError(error)}`);
     }
+  }
+
+  setDate(){
+    let today = new Date();
+    let day = String(today.getDate()).padStart(2,'0');
+    let month = String(today.getMonth()+1).padStart(2,'0');
+    let year = today.getFullYear();
+    const todayString = day+"/"+month+"/"+year;
+    this.state.date = todayString;
+    //this.setState({date: todayString});
   }
 
   /**
@@ -190,13 +201,7 @@ class Login extends React.Component {
                   disabled={!this.state.username || !this.state.name}
                   width="50%"
                   onClick={() => {
-                    let today = new Date();
-                    let day = String(today.getDate()).padStart(2,'0');
-                    let month = String(today.getMonth()+1).padStart(2,'0');
-                    let year = today.getFullYear();
-                    let todayString = day+"/"+month+"/"+year;
-                    this.state.date = todayString;
-                    //this.setState({date: todayString});
+                    this.setDate();
                     this.register();
                   }}
               >

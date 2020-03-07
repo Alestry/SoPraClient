@@ -1,8 +1,6 @@
 import React from 'react';
 import styled from 'styled-components';
-import { BaseContainer } from '../../helpers/layout';
 import { api, handleError } from '../../helpers/api';
-import User from '../shared/models/User';
 import { withRouter } from 'react-router-dom';
 import { Button } from '../../views/design/Button';
 
@@ -12,7 +10,7 @@ const FormContainer = styled.div`
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  color: white;
+  color: red;
 `;
 
 const DataContainer = styled.div`
@@ -21,7 +19,8 @@ const DataContainer = styled.div`
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  color: white;
+  color: blue;
+  font-weight: bold;
 `;
 
 const ButtonContainer = styled.div`
@@ -41,13 +40,7 @@ const InputField = styled.input`
   border-radius: 20px;
   margin-bottom: 20px;
   background: rgba(255, 255, 255, 0.2);
-  color: white;
-`;
-
-const Label = styled.label`
-  color: white;
-  margin-bottom: 10px;
-  text-transform: uppercase;
+  color: black;
 `;
 
 class UserID extends React.Component {
@@ -66,6 +59,7 @@ class UserID extends React.Component {
             editing: false,
             birthdate: null,
             newbirthdate: null,
+            newusername: null,
         };
 
         //Not the most ideal way of handling the page's individualization, but it works i guess
@@ -92,12 +86,14 @@ class UserID extends React.Component {
             const response = await api.get('/users/'+id);
             //const backuser = new User(response.data);
             this.setState({user: response.data});
-            this.setState({username: this.state.user.username})
-            this.setState({status: this.state.user.status})
-            this.setState({date: this.state.user.date})
-            this.setState({id: this.state.user.id})
-            this.setState({birthdate: this.state.user.birthdate})
-            this.setState({token: this.state.user.token})
+            this.setState({username: this.state.user.username});
+            this.setState({newusername: this.state.user.username});
+            this.setState({status: this.state.user.status});
+            this.setState({date: this.state.user.date});
+            this.setState({id: this.state.user.id});
+            this.setState({birthdate: this.state.user.birthdate});
+            this.setState({newbirthdate: this.state.user.birthdate});
+            this.setState({token: this.state.user.token});
         } catch (error) {
             alert(`Something went wrong while fetching the profile: \n${handleError(error)}`);
         }
@@ -116,19 +112,21 @@ class UserID extends React.Component {
     async tryEdit(){
         //Write the temporary birthdate into the persistent one
         this.setState({birthdate: this.state.newbirthdate});
+        this.setState({username: this.state.newusername});
 
         //Call the server to change the birthdate in the backend
         let id = this.state.id;
-        const response = await api.put('/users/'+id, this.state.newbirthdate);
+        const response = await api.put('/users/'+id, this.state.newbirthdate + "!!!" + this.state.newusername);
 
         //Success message
-        alert("The Birthdate was successfully set to " + response.data + ".");
+        alert("Your profile was successfully updated!");
     }
+
 
     render() {
         return (
             <FormContainer>
-                <h1>Welcome to Profile of User Nr. {this.state.id}!</h1>
+                <h1>Welcome to the Profile of User Nr. {this.state.id}!</h1>
                 <DataContainer>
                 Username: {this.state.username}
                 </DataContainer>
@@ -142,15 +140,23 @@ class UserID extends React.Component {
                     Birthdate: {this.state.birthdate}
                     <ButtonContainer>
                         <InputField
-                            placeholder="DD/MM/YYYY"
+                            placeholder="New Username"
+                            onChange={e => {
+                                this.handleInputChange('newusername', e.target.value);
+                            }}
+                        />
+                    </ButtonContainer>
+                    <ButtonContainer>
+                        <InputField
+                            placeholder="New Birthday"
                             onChange={e => {
                                 this.handleInputChange('newbirthdate', e.target.value);
                             }}
                         />
-                        <Button disabled={localStorage.getItem('token') !== this.state.token} onClick={()=>{this.tryEdit()}}>
-                            Edit Birthdate
-                        </Button>
                     </ButtonContainer>
+                    <Button disabled={localStorage.getItem('token') !== this.state.token} onClick={()=>{this.tryEdit()}}>
+                        Save / Update
+                    </Button>
                 </DataContainer>
                 <ButtonContainer>
                     <Button onClick={() => {this.goBack()}}>

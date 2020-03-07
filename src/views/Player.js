@@ -11,6 +11,7 @@ const Container = styled.div`
   align-items: center;
   border: 1px solid #ffffff26;
   cursor: ${props => (props.disabled ? "default" : "pointer")};
+  background-color: #102387;
   `;
 
 const UserName = styled.div`
@@ -21,21 +22,22 @@ const UserName = styled.div`
 
 const Name = styled.div`
   font-weight: bold;
-  color: #06c4ff;
+  color: #66aaaa;
 `;
 
 const Id = styled.div`
   margin-left: 30px;
   margin-right: auto;
   font-weight: bold;
-  color: white;
+  color: yellow;
 `;
 
 const Date = styled.div`
   margin-left: auto;
   margin-right: 10px;
   font-size: 12px
-  color: white;
+  color: pink;
+  font-weight: bold;
 `;
 
 /**
