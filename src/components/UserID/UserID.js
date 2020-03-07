@@ -81,10 +81,8 @@ class UserID extends React.Component {
 
     async getUser(){
         try {
-            //const sentID = JSON.stringify(this.state.id)
-            let id = this.state.searchid;
-            const response = await api.get('/users/'+id);
-            //const backuser = new User(response.data);
+            let userId = this.state.searchid;
+            const response = await api.get('/users/'+userId);
             this.setState({user: response.data});
             this.setState({username: this.state.user.username});
             this.setState({newusername: this.state.user.username});
@@ -115,8 +113,8 @@ class UserID extends React.Component {
         this.setState({username: this.state.newusername});
 
         //Call the server to change the birthdate in the backend
-        let id = this.state.id;
-        const response = await api.put('/users/'+id, this.state.newbirthdate + "!!!" + this.state.newusername);
+        let userId = this.state.id;
+        const response = await api.put('/users/'+userId, this.state.newbirthdate + "!!!" + this.state.newusername);
 
         //Success message
         alert("Your profile was successfully updated!");
