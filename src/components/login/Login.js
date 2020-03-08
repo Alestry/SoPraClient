@@ -92,7 +92,7 @@ class Login extends React.Component {
       const requestBody = JSON.stringify({
         username: this.state.username,
         name: this.state.name,
-        date: this.state.date
+        date: this.state.date,
       });
       const response = await api.post('/users', requestBody);
 
@@ -118,7 +118,7 @@ class Login extends React.Component {
       const requestBody = JSON.stringify({
         username: this.state.username,
         name: this.state.name,
-        date: this.state.date
+        date: this.state.date,
       });
       const response = await api.put('/login', requestBody);
 
@@ -141,7 +141,6 @@ class Login extends React.Component {
     let year = today.getFullYear();
     const todayString = day+"/"+month+"/"+year;
     this.state.date = todayString;
-    //this.setState({date: todayString});
   }
 
   /**

@@ -108,13 +108,13 @@ class UserID extends React.Component {
     }
 
     async tryEdit(){
-        //Write the temporary birthdate into the persistent one
+        //Write the temporary birthdate and username into the persistent one
         this.setState({birthdate: this.state.newbirthdate});
         this.setState({username: this.state.newusername});
 
-        //Call the server to change the birthdate in the backend
+        //Call the server to change the birthdate and username in the backend
         let userId = this.state.id;
-        const response = await api.put('/users/'+userId, this.state.newbirthdate + "!!!" + this.state.newusername);
+        await api.put('/users/'+userId, this.state.newbirthdate + "!!!" + this.state.newusername);
 
         //Success message
         alert("Your profile was successfully updated!");
